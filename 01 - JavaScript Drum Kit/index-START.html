@@ -58,9 +58,23 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
+  document.querySelectorAll("audio[data-key]").forEach((v) => {
+    v.addEventListener("play", function(e) {
+      document.querySelector(`div.key[data-key='${e.target.getAttribute("data-key")}']`).classList.add("playing");
+    });
+    v.addEventListener("pause", function(e) {
+      document.querySelector(`div.key[data-key='${e.target.getAttribute("data-key")}']`).classList.remove("playing");
+    });
+  });
+
+  const availableKeyCodes = [65, 83, 68, 70, 71, 72, 74, 75, 76];
+  document.addEventListener('keydown', function(e) {
+    if (availableKeyCodes.includes(e.keyCode)) {
+      document.querySelector(`audio[data-key='${e.keyCode}']`).play();
+    }
+  })
 
 </script>
-
 
 </body>
 </html>
