@@ -68,7 +68,37 @@
 
   <script>
 
+    function drawClock() {
+      let now = new Date();
 
+      function getHoursDegree() {
+        return (90 + ((now.getHours() % 12) * 30)) % 360;
+      }
+
+      function getMinutesDegree() {
+        return (90 + ((now.getMinutes() % 60) * 6)) % 360;
+      }
+      
+      function getSecondsDegree() {
+        return (90 + ((now.getSeconds() % 60) * 6)) % 360;
+      }
+      
+      const hands = document.querySelectorAll(".hand");
+      hands.forEach( v => {
+        if (v.classList.contains('hour-hand')) {
+          v.style.transform = `rotate(${getHoursDegree()}deg)`;
+        } else if (v.classList.contains('min-hand')) {
+          v.style.transform = `rotate(${getMinutesDegree()}deg)`;
+        } else if (v.classList.contains('second-hand')) {
+          v.style.transform = `rotate(${getSecondsDegree()}deg)`;
+        }
+      });
+    }
+
+    document.querySelectorAll(".hand").forEach(hand => hand.style["transform-origin"] = "100% 50%" );
+    
+    setInterval(drawClock, 1000);
+    
   </script>
 </body>
 </html>
