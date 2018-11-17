@@ -62,6 +62,11 @@
       background: black;
       position: absolute;
       top: 50%;
+      transform-origin: 100%;
+      transform: rotate(90deg);
+      /* transition: none; */
+      transition: all 0.05s;
+      transition-timing-function: cubic-bezier(0, 0, 0, 2.18);
     }
 
   </style>
@@ -72,15 +77,15 @@
       let now = new Date();
 
       function getHoursDegree() {
-        return (90 + ((now.getHours() % 12) * 30)) % 360;
+        return (now.getHours() * 30) + 90;
       }
 
       function getMinutesDegree() {
-        return (90 + ((now.getMinutes() % 60) * 6)) % 360;
+        return (now.getMinutes() * 6) + 90;
       }
       
       function getSecondsDegree() {
-        return (90 + ((now.getSeconds() % 60) * 6)) % 360;
+        return (now.getSeconds() * 6) + 90;
       }
       
       const hands = document.querySelectorAll(".hand");
@@ -94,9 +99,6 @@
         }
       });
     }
-
-    document.querySelectorAll(".hand").forEach(hand => hand.style["transform-origin"] = "100% 50%" );
-    
     setInterval(drawClock, 1000);
     
   </script>
